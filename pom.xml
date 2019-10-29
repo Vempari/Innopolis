@@ -1,10 +1,9 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>ru.innopolis</groupId>
+    <groupId>Innopolis</groupId>
     <artifactId>Innopolis</artifactId>
     <packaging>pom</packaging>
     <version>2.0</version>
-    <name>Innopolis</name>
     <url>http://github.ru/</url>
 
     <properties>
@@ -15,7 +14,6 @@
 
     <modules>
         <module>innopolisMain</module>
-        <module>test</module>
     </modules>
 
     <dependencies>
