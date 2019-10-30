@@ -7,35 +7,41 @@ import static org.hamcrest.core.Is.is;
 
 public class HashMapTableTest {
     @Test
-    public void WhenPutMapThenSize1() {
+    public void whenPutMapThenSize1() {
         HashMapTable a = new HashMapTable();
-        HashObject b = new HashObject(1,1);
-        HashObject c = new HashObject(1,1);
 
         a.put(1, "Hello");
         a.put(4, "Vasya");
-        assertThat(c.getKey(), is(b.hashCode()));
-    }
-
-    @Test
-    public void WhenPutInTheSamePlace() {
-        HashMapTable a = new HashMapTable();
-        a.put(1, "Hello");
-        a.put(1, "Hello");
         assertThat(a.size(), is(2));
     }
 
     @Test
-    public void WhenPutMapThenContainsKey() {
+    public void whenPutInTheSamePlace() {
+        HashMapTable a = new HashMapTable();
+        a.put(1, "Hello");
+        a.put(1, "aaaa");
+        assertThat(a.size(), is(1));
+    }
+
+    @Test
+    public void whenPutMapThenContainsKey() {
         HashMapTable a = new HashMapTable();
         a.put(1, "Hello");
         a.put(4, "Vasya");
         assertThat(a.containsKey(1), is(true));
     }
 
+    @Test
+    public void whenPutMapThenContainsWrongKey() {
+        HashMapTable a = new HashMapTable();
+        a.put(1, "Hello");
+        a.put(4, "Vasya");
+        assertThat(a.containsKey(5), is(false));
+    }
+
 
     @Test
-    public void WhenPutThenRemoveMapThenSize() {
+    public void whenPutThenRemoveMapThenSize() {
         HashMapTable a = new HashMapTable();
         a.put("1", "Hello");
         a.remove("1");
@@ -44,7 +50,7 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void WhenPutMapThenSetThenNewValue() {
+    public void whenPutMapThenSetThenNewValue() {
         HashMapTable a = new HashMapTable();
         a.put(1, "Hello");
         a.put(4, "Vasya");
@@ -53,26 +59,32 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void WhenPutMoreThen16() {
+    public void whenPutMoreThen16() {
         HashMapTable a = new HashMapTable();
         a.put(1, "Hello");
         a.put(4, "Vasya");
-        a.put(2, "Hello");
-        a.put("3", "Vasya");
-        a.put("2", "Hello");
-        a.put("as", "Vasya");
-        a.put(100, "Hello");
-        a.put(63, "Vasya");
-        a.put(89, "Hello");
-        a.put(84, "Vasya");
-        a.put(222, "Hello");
-        a.put(12, "Vasya");
-        a.put(3333, "Hello");
-        a.put(4444, "Vasya");
-        a.put(112, "Hello");
-        a.put(4321, "Vasya");
-        a.put(8888, "Vasya");
+        a.put(2, "a");
+        a.put(-99, "b");
+        a.put(400, "c");
+        a.put(1234, "d");
+        a.put(100, "e");
+        a.put(63, "f");
+        a.put("89", "g");
+        a.put(84, "h");
+        a.put(222, "i");
+        a.put(12, "j");
+        a.put("3333", "k");
+        a.put(new HashObject(2, "bbb"), "l");
+        a.put(112, "m");
+        a.put(4321, "n");
+        a.put(8888, "o");
         assertThat(a.size(), is(17));
     }
 
+    @Test
+    public void whenNullPutInside() {
+        HashMapTable a = new HashMapTable();
+        a.put(null, null);
+        assertThat("Нельзя дабавлять null", is("Нельзя дабавлять null"));
+    }
 }

@@ -3,41 +3,27 @@ package part1.lesson2;
 import java.util.Objects;
 
 public class HashObject {
-    int Key;
-    Object Value;
+    int key;
+    Object value;
 
     public HashObject(Object key, Object value) {
-        Key = key.hashCode();
-        Value = value;
+        key = key.hashCode();
+        value = value;
     }
 
     public int getKey() {
-        return Key;
+        return key;
     }
 
     public void setKey(int key) {
-        Key = key;
+        this.key = key;
     }
 
     public Object getValue() {
-        return Value;
+        return value;
     }
 
     public void setValue(Object value) {
-        Value = value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        HashObject that = (HashObject) o;
-        return Key == that.Key &&
-                Objects.equals(Value, that.Value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Key, Value);
+        this.value = value;
     }
 }
