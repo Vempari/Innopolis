@@ -1,16 +1,14 @@
-package part01.lesson01;
+package part1.lesson1;
 
 import org.junit.Test;
-
-
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-public class task01Test {
+public class Task1Test {
     @Test
-    public void whenHelloThenSOUT () {
-        task01 a = new task01();
+    public void whenHelloThenSOUT() {
+        Task1 a = new Task1();
         assertThat(a.sayHello(), is("Hello, World!"));
     }
 }
