@@ -82,6 +82,15 @@ public class HashMapTableTest {
     }
 
     @Test
+    public void when100Things() {
+        HashMapTable a = new HashMapTable();
+        for(int i = 0; i < 100; i++) {
+            a.put(i, i+i);
+        }
+        assertThat(a.size(), is(100));
+    }
+
+    @Test
     public void whenNullPutInside() {
         HashMapTable a = new HashMapTable();
         a.put(null, null);

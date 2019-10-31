@@ -7,9 +7,10 @@ public class HashObject {
     Object value;
 
     public HashObject(Object key, Object value) {
-        key = key.hashCode();
-        value = value;
+        this.key = key.hashCode();
+        this.value = value;
     }
+
 
     public int getKey() {
         return key;

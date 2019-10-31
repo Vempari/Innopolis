@@ -2,21 +2,23 @@ package part1.lesson2;
 
 import java.lang.*;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 
 public class HashMapTable {
-    int arraySize = 1000000;
+    int arraySize = 16;
     HashObject[] map = new HashObject[arraySize];
     int counter = 0;
 
     public int makeIndex(Object key) {
-        if (key.hashCode() > arraySize) {
-            return key.hashCode() % arraySize;
+        int result = key.hashCode() % arraySize;
+        if (result < 0) {
+            result = -result;
         }
-        if (key.hashCode() < 0) {
-            return arraySize + key.hashCode();
+        while (map[result] != null && key.hashCode() != map[result].getKey()) {
+            result++;
         }
-        return key.hashCode();
+        return result;
     }
 
     public Object getKey(Object key) {
@@ -25,6 +27,10 @@ public class HashMapTable {
 
     public void put(Object key, Object value) {
         try {
+            if (counter >= arraySize) {
+                arraySize ++;
+                map = Arrays.copyOf(map, arraySize);
+            }
             if (map[makeIndex(key)] == null) {
                 counter++;
             }
