@@ -1,30 +1,28 @@
 package part1.lesson2;
 
-import java.util.Objects;
+import java.util.Map;
 
-public class HashObject {
-    int key;
-    Object value;
+public class HashObject<K,V> implements Map.Entry {
+    K key;
+    V value;
 
-    public HashObject(Object key, Object value) {
-        this.key = key.hashCode();
+    public HashObject(K key, V value) {
+        this.key = key;
         this.value = value;
     }
 
 
-    public int getKey() {
+    public Object getKey() {
         return key;
     }
 
-    public void setKey(int key) {
-        this.key = key;
-    }
 
     public Object getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public Object setValue(Object value) {
+        this.value = (V) value;
+        return value;
     }
 }

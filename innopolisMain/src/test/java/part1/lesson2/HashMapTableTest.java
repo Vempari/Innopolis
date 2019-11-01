@@ -2,6 +2,8 @@ package part1.lesson2;
 
 import org.junit.Test;
 
+import java.util.*;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -48,9 +50,9 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void whenMapIsEmty() {
+    public void whenMapIsEmpty() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
-        assertThat(a.isEmty(), is(true));
+        assertThat(a.isEmpty(), is(true));
     }
 
     @Test
@@ -67,7 +69,7 @@ public class HashMapTableTest {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         a.put(1, "Hello");
         a.put(4, "Vasya");
-        a.keySet(1, "Jenya");
+        a.put(1, "Jenya");
         assertThat(a.get(1), is("Jenya"));
     }
 
@@ -132,5 +134,52 @@ public class HashMapTableTest {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         a.put(null, null);
         assertThat("Нельзя дабавлять null", is("Нельзя дабавлять null"));
+    }
+
+    @Test
+    public void whenReturnSet() {
+        HashMapTable<Integer, String> a = new HashMapTable<>();
+        Set<Integer> set;
+        a.put(1, "Hello");
+        a.put(4, "Vasya");
+        a.put(2, "a");
+        set = a.keySet();
+        assertThat(set.size(), is(3));
+    }
+
+    @Test
+    public void whenReturnValue() {
+        HashMapTable<Integer, String> a = new HashMapTable<>();
+        Collection<String> col;
+        a.put(1, "Hello");
+        a.put(4, "Vasya");
+        a.put(2, "a");
+        col = a.values();
+        assertThat(col.contains("Vasya"), is(true));
+    }
+
+    @Test
+    public void whenReturnEntrySet() {
+        HashMapTable<Integer, String> a = new HashMapTable<>();
+        Set<Map.Entry<Integer, String>> set;
+        a.put(1, "Hello");
+        a.put(4, "Vasya");
+        a.put(2, "a");
+        set = a.entrySet();
+        assertThat(set.size(), is(3));
+    }
+
+    @Test
+    public void whenPutAll() {
+        HashMapTable<Integer, String> a = new HashMapTable<>();
+        HashMapTable<Integer, String> a1 = new HashMapTable<>();
+        a.put(1, "Hello");
+        a.put(4, "Vasya");
+        a.put(2, "a");
+        a1.put(8, "Zuk");
+        a1.put(9, "Pauk");
+        a1.put(10, "Karakatiza");
+        a.putAll(a1);
+        assertThat(a.get(9), is("Pauk"));
     }
 }
