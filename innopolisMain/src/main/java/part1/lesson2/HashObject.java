@@ -2,7 +2,7 @@ package part1.lesson2;
 
 import java.util.Map;
 
-public class HashObject<K,V> implements Map.Entry {
+public class HashObject<K, V> implements Map.Entry {
     K key;
     V value;
 
