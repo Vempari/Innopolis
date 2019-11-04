@@ -123,7 +123,7 @@ public class HashMapTableTest {
     @Test
     public void when100Things() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
-        for (int i = 0; i < 100; i++) {
+        for(int i = 0; i < 100; i++) {
             a.put(i, "i+i");
         }
         assertThat(a.size(), is(100));
