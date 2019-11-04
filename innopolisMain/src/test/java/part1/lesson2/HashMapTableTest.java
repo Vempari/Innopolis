@@ -12,7 +12,7 @@ public class HashMapTableTest {
     public void whenPutMapThenSize1() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
 
-        a.put(1, "Hello");
+        a.put(1, "Hello ");
         a.put(4, "Vasya");
         assertThat(a.size(), is(2));
     }
