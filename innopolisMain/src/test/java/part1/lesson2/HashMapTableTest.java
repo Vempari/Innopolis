@@ -18,7 +18,7 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void whenPutInTheSamePlace() {
+    public void whenPutInTheSamePlaceThenSize1() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         a.put(1, "Hello");
         a.put(1, "aaaa");
@@ -50,13 +50,13 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void whenMapIsEmpty() {
+    public void whenMapIsEmptyThenTrue() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         assertThat(a.isEmpty(), is(true));
     }
 
     @Test
-    public void whenPutThenRemoveMapThenSize() {
+    public void whenPutThenRemoveMapThenSize1() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         a.put(1, "Hello");
         a.remove(1);
@@ -65,16 +65,7 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void whenPutMapThenSetThenNewValue() {
-        HashMapTable<Integer, String> a = new HashMapTable<>();
-        a.put(1, "Hello");
-        a.put(4, "Vasya");
-        a.put(1, "Jenya");
-        assertThat(a.get(1), is("Jenya"));
-    }
-
-    @Test
-    public void whenPutMoreThen16() {
+    public void whenPutMoreThen16ThenSizeMoreThen16() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         a.put(1, "Hello");
         a.put(4, "Vasya");
@@ -97,7 +88,7 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void whenPutAndClear() {
+    public void whenPutAndClearThenSize0() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         a.put(1, "Hello");
         a.put(4, "Vasya");
@@ -121,7 +112,7 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void when100Things() {
+    public void whenPut100ThenSize100() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         for (int i = 0; i < 100; i++) {
             a.put(i, "i+i");
@@ -130,14 +121,14 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void whenNullPutInside() {
+    public void whenNullPutInsideThenException() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         a.put(null, null);
         assertThat("Нельзя дабавлять null", is("Нельзя дабавлять null"));
     }
 
     @Test
-    public void whenReturnSet() {
+    public void WhenPutMapAndReturnSetOfKeys() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         Set<Integer> set;
         a.put(1, "Hello");
@@ -148,7 +139,7 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void whenReturnValue() {
+    public void WhenPutMapAndReturnCollectionOfValue() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         Collection<String> col;
         a.put(1, "Hello");
@@ -159,7 +150,7 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void whenReturnEntrySet() {
+    public void WhenPutMapAndReturnSetOfObjectsKeyAndValue() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         Set<Map.Entry<Integer, String>> set;
         a.put(1, "Hello");
@@ -170,7 +161,7 @@ public class HashMapTableTest {
     }
 
     @Test
-    public void whenPutAll() {
+    public void WhenPutMapInsideMapWithPutAllThenSizeMap1PlusMap2() {
         HashMapTable<Integer, String> a = new HashMapTable<>();
         HashMapTable<Integer, String> a1 = new HashMapTable<>();
         a.put(1, "Hello");
