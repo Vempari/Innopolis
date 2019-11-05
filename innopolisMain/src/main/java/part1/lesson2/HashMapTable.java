@@ -3,7 +3,7 @@ package part1.lesson2;
 import java.lang.*;
 import java.util.*;
 
-public class HashMapTable<K, V> implements Map<K, V> {
+public class HashMapTable <K,V> implements Map<K,V>{
     int arraySize = 16;
     HashObject[] map = new HashObject[arraySize];
     int counter = 0;
@@ -71,7 +71,7 @@ public class HashMapTable<K, V> implements Map<K, V> {
         Set<K> set = new HashSet<>();
         for (int i = 0; i < arraySize; i++) {
             if (map[i] != null) {
-                set.add((K) map[i].getKey());
+                set.add((K)map[i].getKey());
             }
         }
         return set;
@@ -80,7 +80,7 @@ public class HashMapTable<K, V> implements Map<K, V> {
     @Override
     public Collection<V> values() {
         Collection<V> col = new ArrayList<>();
-        for (int i = 0; i < arraySize; i++) {
+        for(int i = 0; i < arraySize; i++) {
             if (map[i] != null) {
                 col.add((V) map[i].getValue());
             }
@@ -90,7 +90,7 @@ public class HashMapTable<K, V> implements Map<K, V> {
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        Set<Entry<K, V>> set = new HashSet<>();
+        Set<Entry<K,V>> set = new HashSet<>();
         for (int i = 0; i < arraySize; i++) {
             if (map[i] != null) {
                 set.add(map[i]);
@@ -124,9 +124,7 @@ public class HashMapTable<K, V> implements Map<K, V> {
 
     @Override
     public boolean isEmpty() {
-        if (counter == 0) {
-            return true;
-        }
+        if (counter == 0) return true;
         return false;
      }
 
