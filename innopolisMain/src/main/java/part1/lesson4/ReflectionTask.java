@@ -7,7 +7,7 @@ import java.util.Set;
 import java.lang.reflect.*;
 
 
-public class Task1 {
+public class ReflectionTask {
     void cleanup(Object object, Set<String> fieldsToCleanup, Set<String> fieldsToOutput)
             throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Class<?> clazz = object.getClass();
@@ -24,7 +24,6 @@ public class Task1 {
         }
 
         if (result) {
-
             Set<?> keySet = ((Map) object).keySet();
 
             for (Object set : keySet) {
