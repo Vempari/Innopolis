@@ -1,6 +1,9 @@
 package part1.lesson4;
 
-public class Human {
+import java.io.Serializable;
+import java.util.Map;
+
+public class Human implements Serializable {
     private int age;
     private String name;
     private String adress;
