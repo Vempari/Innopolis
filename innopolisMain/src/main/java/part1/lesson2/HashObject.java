@@ -2,7 +2,7 @@ package part1.lesson2;
 
 import java.util.Map;
 
-public class HashObject<K, V> implements Map.Entry<K, V> {
+public class HashObject<K, V> implements Map.Entry {
     K key;
     V value;
 
@@ -12,12 +12,12 @@ public class HashObject<K, V> implements Map.Entry<K, V> {
     }
 
 
-    public K getKey() {
+    public Object getKey() {
         return key;
     }
 
 
-    public V getValue() {
+    public Object getValue() {
         return value;
     }
 
