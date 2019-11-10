@@ -8,8 +8,17 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-public class Server {
 
+//GET / HTTP/1.1
+//Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+//Upgrade-Insecure-Requests: 1
+//Host: localhost:8000
+//User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Safari/605.1.15
+//Accept-Language: ru
+//Accept-Encoding: gzip, deflate
+//Connection: keep-alive
+
+public class Server {
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create((new InetSocketAddress(8000)), 0);
         server.createContext("/", new MyHandler());
