@@ -4,7 +4,7 @@ public class GameOfLifeThreads {
     private int length;
     private int width;
     private int steps;
-    boolean[][] field;
+    volatile boolean[][] field;
 
     public GameOfLifeThreads(int length, int width, int steps, boolean[][] field) {
         this.length = length;
@@ -12,6 +12,30 @@ public class GameOfLifeThreads {
         this.steps = steps;
         this.field = field;
     }
+    public void main() {
+        thread.start();
+        thread1.start();
+        thread2.start();
+
+    }
+    Thread thread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            generationStep();
+        }
+    });
+    Thread thread1 = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            generationStep();
+        }
+    });
+    Thread thread2 = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            generationStep();
+        }
+    });
 
     public void generationStep() {
         for (int l = 0; l < steps; l++) {
