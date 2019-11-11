@@ -5,6 +5,7 @@ public class GameOfLifeThreads {
     private int width;
     private int steps;
     volatile boolean[][] field;
+    Object lock = new Object();
 
     public GameOfLifeThreads(int length, int width, int steps, boolean[][] field) {
         this.length = length;
@@ -12,42 +13,35 @@ public class GameOfLifeThreads {
         this.steps = steps;
         this.field = field;
     }
+
+    Thread thread = new Thread(() -> generationStep());
+    Thread thread1 = new Thread(() -> generationStep());
+
+
     public void main() {
         thread.start();
         thread1.start();
-        thread2.start();
-
+        try {
+            thread.join();
+            thread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
-    Thread thread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            generationStep();
-        }
-    });
-    Thread thread1 = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            generationStep();
-        }
-    });
-    Thread thread2 = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            generationStep();
-        }
-    });
 
-    public void generationStep() {
+    public synchronized void generationStep() {
         for (int l = 0; l < steps; l++) {
+            boolean[][] safeField = field;
             for (int i = 0; i < length; i++) {
                 for (int j = 0; j < width; j++) {
-                    if (field[i][j] && (findNeighbor(i, j) > 3 || findNeighbor(i, j) < 2)) {
-                        field[i][j] = false;
+                    if (field[i][j] && (findNeighbor(i, j) > 2 || findNeighbor(i, j) < 2)) {
+                        safeField[i][j] = false;
                     } else if (!field[i][j] && findNeighbor(i, j) > 2) {
-                        field[i][j] = true;
+                        safeField[i][j] = true;
                     }
                 }
             }
+            field = safeField;
         }
     }
 
@@ -55,8 +49,8 @@ public class GameOfLifeThreads {
         int result = 0;
         int plusI = (i + 1) % length;
         int plusJ = (j + 1) % width;
-        int minusI = (i <= 0 ? length - 1 : i - 1);
-        int minusJ = (i <= 0 ? width - 1 : i - 1);
+        int minusI = (i - 1<= 0 ? length - 1 : i - 1);
+        int minusJ = (j - 1<= 0 ? width - 1 : j - 1);
 
         if (field[plusI][minusJ]) result++;
         if (field[plusI][j]) result++;

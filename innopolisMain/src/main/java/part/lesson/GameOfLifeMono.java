@@ -15,15 +15,17 @@ public class GameOfLifeMono {
 
     public void generationStep() {
         for (int l = 0; l < steps; l++) {
+            boolean[][] safeField = this.field;
             for (int i = 0; i < length; i++) {
                 for (int j = 0; j < width; j++) {
-                    if (field[i][j] && (findNeighbor(i, j) > 3 || findNeighbor(i, j) < 2)) {
-                        field[i][j] = false;
+                    if (field[i][j] && (findNeighbor(i, j) > 2 || findNeighbor(i, j) < 2)) {
+                        safeField[i][j] = false;
                     } else if (!field[i][j] && findNeighbor(i, j) > 2) {
-                        field[i][j] = true;
+                        safeField[i][j] = true;
                     }
                 }
             }
+            this.field = safeField;
         }
     }
 
@@ -31,8 +33,8 @@ public class GameOfLifeMono {
         int result = 0;
         int plusI = (i + 1) % length;
         int plusJ = (j + 1) % width;
-        int minusI = (i <= 0 ? length - 1 : i - 1);
-        int minusJ = (i <= 0 ? width - 1 : i - 1);
+        int minusI = (i - 1 <= 0 ? length - 1 : i - 1);
+        int minusJ = (j - 1 <= 0 ? width - 1 : j - 1);
 
         if (field[plusI][minusJ]) result++;
         if (field[plusI][j]) result++;

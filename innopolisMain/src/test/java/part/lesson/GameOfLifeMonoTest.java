@@ -3,7 +3,6 @@ package part.lesson;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.sql.Time;
 
 public class GameOfLifeMonoTest {
     @Test
@@ -16,6 +15,7 @@ public class GameOfLifeMonoTest {
         life.generationStep();
         long finish = System.currentTimeMillis();
         System.out.println(finish - start);
+        System.out.println(file.toString());
     }
 
     @Test
@@ -28,5 +28,7 @@ public class GameOfLifeMonoTest {
         life.main();
         long finish = System.currentTimeMillis();
         System.out.println(finish - start);
+        System.out.println(file.toString());
+
     }
 }
