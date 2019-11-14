@@ -21,7 +21,7 @@ public class Server {
         @Override
         public void handle(HttpExchange t) throws IOException {
             String response = "";
-            File file = new File("/Users/vempari/Innopolis/innopolisMain/src/main/java/part1/lesson6");
+            File file = new File("innopolisMain/src/main/java/part1/lesson6");
             File[] list = file.listFiles();
             for (File name : list) {
                 response = response + name.toString() + System.lineSeparator();
