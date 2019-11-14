@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class GameOfLifeMonoTest {
     @Test
-    public void generationStep_() throws IOException, ClassNotFoundException {
+    public void generationStep() throws IOException, ClassNotFoundException {
         long start = System.currentTimeMillis();
         Buffer buffer = new Buffer();
         IOFile file = buffer.getFile();
@@ -19,13 +19,13 @@ public class GameOfLifeMonoTest {
     }
 
     @Test
-    public void generationStep_2() throws IOException, ClassNotFoundException {
+    public void generationStep2() throws IOException, ClassNotFoundException, InterruptedException {
         long start = System.currentTimeMillis();
         Buffer buffer = new Buffer();
         IOFile file = buffer.getFile();
         GameOfLifeThreads life =
                 new GameOfLifeThreads(file.getLength(), file.getWidth(), file.getSteps(), file.getField());
-        life.main();
+        life.generationStep();
         long finish = System.currentTimeMillis();
         System.out.println(finish - start);
         System.out.println(file.toString());

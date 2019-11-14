@@ -1,6 +1,7 @@
 package part.lesson;
 
 import java.io.*;
+import java.net.URL;
 import java.util.Scanner;
 
 public class Buffer {
@@ -34,7 +35,7 @@ public class Buffer {
         in.close();
         file.setField(field);
         FileOutputStream fileOutputStream =
-                new FileOutputStream("/Users/vempari/Innopolis/innopolisMain/src/main/resources/file.ser");
+                new FileOutputStream("innopolisMain/src/main/resources/file.ser");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
         objectOutputStream.writeObject(file);
@@ -45,7 +46,7 @@ public class Buffer {
     //Получение из файла
     public IOFile getFile() throws IOException, ClassNotFoundException {
         FileInputStream fileInputStream =
-                new FileInputStream("/Users/vempari/Innopolis/innopolisMain/src/main/resources/file.ser");
+                new FileInputStream("src/main/resources/file.ser");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
         IOFile file = (IOFile) objectInputStream.readObject();

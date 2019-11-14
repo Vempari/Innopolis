@@ -44,7 +44,7 @@ public class IOFile implements Serializable {
     @Override
     public String toString() {
         String result = "";
-        for (boolean counter[] : field) {
+        for (boolean[] counter : field) {
             for (boolean count : counter) {
                 result = result +  " " + count;
             }

@@ -1,39 +1,25 @@
 package part.lesson;
 
 public class GameOfLifeThreads {
-    private int length;
-    private int width;
-    private int steps;
-    volatile boolean[][] field;
-    Object lock = new Object();
+    final private int LENGTH;
+    final private int WIDTH;
+    final private int STEPS;
+    boolean[][] field;
+    boolean[][] safeField;
 
-    public GameOfLifeThreads(int length, int width, int steps, boolean[][] field) {
-        this.length = length;
-        this.width = width;
-        this.steps = steps;
+
+    public GameOfLifeThreads(int LENGTH, int WIDTH, int STEPS, boolean[][] field) {
+        this.LENGTH = LENGTH;
+        this.WIDTH = WIDTH;
+        this.STEPS = STEPS;
         this.field = field;
     }
 
-    Thread thread = new Thread(() -> generationStep());
-    Thread thread1 = new Thread(() -> generationStep());
-
-
-    public void main() {
-        thread.start();
-        thread1.start();
-        try {
-            thread.join();
-            thread1.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public synchronized void generationStep() {
-        for (int l = 0; l < steps; l++) {
-            boolean[][] safeField = field;
-            for (int i = 0; i < length; i++) {
-                for (int j = 0; j < width; j++) {
+    public void generationStep() {
+        for (int l = 0; l < STEPS; l++) {
+            safeField = field;
+            for (int i = 0; i < LENGTH; i++) {
+                for (int j = 0; j < WIDTH; j++) {
                     if (field[i][j] && (findNeighbor(i, j) > 2 || findNeighbor(i, j) < 2)) {
                         safeField[i][j] = false;
                     } else if (!field[i][j] && findNeighbor(i, j) > 2) {
@@ -47,10 +33,10 @@ public class GameOfLifeThreads {
 
     public int findNeighbor(int i, int j) {
         int result = 0;
-        int plusI = (i + 1) % length;
-        int plusJ = (j + 1) % width;
-        int minusI = (i - 1<= 0 ? length - 1 : i - 1);
-        int minusJ = (j - 1<= 0 ? width - 1 : j - 1);
+        int plusI = (i + 1) % LENGTH;
+        int plusJ = (j + 1) % WIDTH;
+        int minusI = (i - 1 <= 0 ? LENGTH - 1 : i - 1);
+        int minusJ = (j - 1 <= 0 ? WIDTH - 1 : j - 1);
 
         if (field[plusI][minusJ]) result++;
         if (field[plusI][j]) result++;
