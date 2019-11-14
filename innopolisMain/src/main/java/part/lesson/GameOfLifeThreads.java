@@ -1,11 +1,19 @@
 package part.lesson;
 
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+
 public class GameOfLifeThreads {
     final private int LENGTH;
     final private int WIDTH;
     final private int STEPS;
     boolean[][] field;
-    boolean[][] safeField;
+    boolean[][] safeFieldThread1;
+    boolean[][] safeFieldThread2;
+
+    private static final CyclicBarrier BARRIER = new CyclicBarrier(2);
+    Thread thread1 = new Thread(() -> generationStepThread1());
+    Thread thread2 = new Thread(() -> generationStepThread2());
 
 
     public GameOfLifeThreads(int LENGTH, int WIDTH, int STEPS, boolean[][] field) {
@@ -15,19 +23,71 @@ public class GameOfLifeThreads {
         this.field = field;
     }
 
-    public void generationStep() {
+    public void main() {
+        thread1.start();
+        thread2.start();
+
+    }
+
+
+    public void generationStepThread1() {
         for (int l = 0; l < STEPS; l++) {
-            safeField = field;
-            for (int i = 0; i < LENGTH; i++) {
+            safeFieldThread1 = field;
+            for (int i = 0; i < LENGTH; i += 2) {
                 for (int j = 0; j < WIDTH; j++) {
-                    if (field[i][j] && (findNeighbor(i, j) > 2 || findNeighbor(i, j) < 2)) {
-                        safeField[i][j] = false;
+                    if (field[i][j] && (findNeighbor(i, j) > 3 || findNeighbor(i, j) < 2)) {
+                        safeFieldThread1[i][j] = false;
                     } else if (!field[i][j] && findNeighbor(i, j) > 2) {
-                        safeField[i][j] = true;
+                        safeFieldThread1[i][j] = true;
                     }
                 }
             }
-            field = safeField;
+            try {
+                BARRIER.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+            for (int j = 0; j < LENGTH; j += 2) {
+                for (int k = 0; k < WIDTH; k++) {
+                    field[j][k] = safeFieldThread1[j][k];
+                }
+            }
+            try {
+                BARRIER.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public void generationStepThread2() {
+        for (int l = 0; l < STEPS; l++) {
+            safeFieldThread2 = field;
+            for (int i = 1; i < LENGTH; i += 2) {
+                for (int j = 0; j < WIDTH; j++) {
+                    if (field[i][j] && (findNeighbor(i, j) > 3 || findNeighbor(i, j) < 2)) {
+                        safeFieldThread2[i][j] = false;
+                    } else if (!field[i][j] && findNeighbor(i, j) > 2) {
+                        safeFieldThread2[i][j] = true;
+                    }
+                }
+            }
+            try {
+                BARRIER.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+            for (int j = 1; j < LENGTH; j += 2) {
+                for (int k = 0; k < WIDTH; k++) {
+                    field[j][k] = safeFieldThread2[j][k];
+                }
+            }
+            try {
+                BARRIER.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
+            }
         }
     }
 

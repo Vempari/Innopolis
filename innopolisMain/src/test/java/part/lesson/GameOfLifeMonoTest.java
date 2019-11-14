@@ -15,20 +15,17 @@ public class GameOfLifeMonoTest {
         life.generationStep();
         long finish = System.currentTimeMillis();
         System.out.println(finish - start);
-        System.out.println(file.toString());
     }
 
     @Test
-    public void generationStep2() throws IOException, ClassNotFoundException, InterruptedException {
+    public void generationStep2() throws IOException, ClassNotFoundException {
         long start = System.currentTimeMillis();
         Buffer buffer = new Buffer();
         IOFile file = buffer.getFile();
         GameOfLifeThreads life =
                 new GameOfLifeThreads(file.getLength(), file.getWidth(), file.getSteps(), file.getField());
-        life.generationStep();
+        life.main();
         long finish = System.currentTimeMillis();
         System.out.println(finish - start);
-        System.out.println(file.toString());
-
     }
 }

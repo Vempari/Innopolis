@@ -5,6 +5,7 @@ public class GameOfLifeMono {
     private int width;
     private int steps;
     boolean[][] field;
+    boolean[][] safeField;
 
     public GameOfLifeMono(int length, int width, int steps, boolean[][] field) {
         this.length = length;
@@ -15,17 +16,17 @@ public class GameOfLifeMono {
 
     public void generationStep() {
         for (int l = 0; l < steps; l++) {
-            boolean[][] safeField = this.field;
+            safeField = field;
             for (int i = 0; i < length; i++) {
                 for (int j = 0; j < width; j++) {
-                    if (field[i][j] && (findNeighbor(i, j) > 2 || findNeighbor(i, j) < 2)) {
+                    if (field[i][j] && (findNeighbor(i, j) > 3 || findNeighbor(i, j) < 2)) {
                         safeField[i][j] = false;
                     } else if (!field[i][j] && findNeighbor(i, j) > 2) {
                         safeField[i][j] = true;
                     }
                 }
             }
-            this.field = safeField;
+            field = safeField;
         }
     }
 
